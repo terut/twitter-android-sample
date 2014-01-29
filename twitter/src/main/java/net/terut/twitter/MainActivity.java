@@ -3,6 +3,7 @@ package net.terut.twitter;
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -10,6 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
+
+import net.terut.twitter.lib.TwitterClient;
 
 public class MainActivity extends Activity {
 
@@ -22,6 +25,12 @@ public class MainActivity extends Activity {
             getFragmentManager().beginTransaction()
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
+        }
+
+        if (!TwitterClient.hasAccessToken(this)) {
+            Intent intent = new Intent(this, TwitterOAuthActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
 
