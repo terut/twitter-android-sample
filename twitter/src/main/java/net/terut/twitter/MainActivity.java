@@ -15,8 +15,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import net.terut.twitter.lib.TwitterClient;
 
@@ -133,6 +136,8 @@ public class MainActivity extends ListActivity {
                 convertView = mInflater.inflate(R.layout.list_item_tweet, null);
             }
             Status item = getItem(position);
+            ImageView icon = (ImageView) convertView.findViewById(R.id.icon);
+            Picasso.with(convertView.getContext()).load(item.getUser().getProfileImageURL()).into(icon);
             TextView name = (TextView) convertView.findViewById(R.id.name);
             name.setText(item.getUser().getName());
             TextView screenName = (TextView) convertView.findViewById(R.id.screen_name);
